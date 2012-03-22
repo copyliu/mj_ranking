@@ -20,5 +20,9 @@ urlpatterns = patterns('',
     (r'^accounts/login/$',  login),
 (r'^accounts/logout/$', logout),
 (r'^accounts/password/change/$',password_change),
-(r'accounts/password/done/$', password_change_done),
+(r'^accounts/password/done/$', password_change_done),
+    (r'^leagues/(\d+)/',"mj_ranking.ranking.views.leagues"),
+    (r'^$',"mj_ranking.ranking.views.home"),
+
+
 )

@@ -2,6 +2,6 @@
 
 {% for i in Leagues %}
 
-{{ i.name }}
+<a href="{% url ranking.views.leagues i.id %}">{{ i.name }}</a>
 
 {% endfor %}
