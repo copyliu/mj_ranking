@@ -5,9 +5,9 @@ from django.contrib import admin
 
 
 class Users(models.Model):
-    jrm_id=models.CharField(max_length=20,null=True,verbose_name="雀龍門ID")
-    tenhou_id=models.CharField(max_length=20,null=True,verbose_name="天鳳名字")
-    region=models.CharField(max_length=10,null=True,verbose_name="來自")
+    jrm_id=models.CharField(max_length=20,verbose_name="雀龍門ID",unique=True)
+    tenhou_id=models.CharField(max_length=20,blank=True,verbose_name="天鳳名字")
+    region=models.CharField(max_length=10,blank=True,verbose_name="來自")
 
     class Meta:
         verbose_name_plural=verbose_name = "選手"

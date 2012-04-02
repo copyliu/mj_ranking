@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title  %}錄入姿勢{% endblock %}
+
+
+{% block content  %}
+    <script src="/static/jquery-1.7.2.min.js"></script>
+
+    <script type="text/javascript">
+        function select_league(){
+
+        jQuery.getJSON("/getJSON?show_round="+$(this).attr("league")+"&callback=?",
+
+        function(data){
+            $("#toptitle").text(data.leagues.name);
+            $("#htitle").text("請選擇輪次");
+            $("#maindata").empty();
+            $.each(data.rounds,function(i,item){
+            $("#maindata").append($("<div/>").attr("id","round-"+item.pk).addClass("round_select").append($("<a/>").attr("href","#").attr("round",item.pk).text(item.fields.name).click(select_round)));
+
+            })
+
+
+        });
+
+            return false;
+        }
+
+
+        function select_round(){
+
+                jQuery.getJSON("/getJSON?show_group="+$(this).attr("round")+"&callback=?",
+
+                function(data){
+                    $("#toptitle").text($("#toptitle").text()+" "+data.round.name);
+                    $("#htitle").text("請選擇組別");
+                    $("#maindata").empty();
+                    $.each(data.groups,function(i,item){
+                    $("#maindata").append($("<div/>").attr("id","group-"+item.pk).addClass("round_select").append($("<a/>").attr("href","#").attr("group",item.pk).text(item.fields.name).click(select_group)));
+
+                    })
+
+
+                });
+                    return false;
+                }
+        function select_group(){
+
+                jQuery.getJSON("/getJSON?show_match="+$(this).attr("group")+"&callback=?",
+
+                function(data){
+                    $("#toptitle").text($("#toptitle").text()+" "+data.group.name);
+                    $("#htitle").text("請選擇場次");
+                    $("#maindata").empty();
+                    $.each(data.matchs,function(i,item){
+                    $("#maindata").append($("<div/>").attr("id","match-"+item.pk).addClass("match_select").append($("<a/>").attr("href","#").attr("match",item.pk).text(item.fields.name).click(select_match)));
+
+                    })
+
+
+                });
+                    return false;
+                }
+        function select_match(){
+            $("#toptitle").text($("#toptitle").text()+" "+$(this).text());
+            $("#htitle").text("請粘貼數據");
+            $("#form1").attr("match",$(this).attr("match")).show();
+
+            $("#maindata").empty();
+
+
+
+
+
+
+            return false;
+
+        }
+        function data_submit(){
+
+            jQuery.post("/import/",{
+                    type:"json",
+                    value:$("#text").val(),
+                match:$("#form1").attr("match")
+
+
+            },function(data)
+
+            {
+                alert(data.msg);
+
+                if (data.error==0){
+                    window.location.reload();
+
+                }
+
+            },"json");
+            return false;
+        }
+        $(document).ready(function() {
+        	// do stuff when DOM is ready
+            $(".league_select a").click(select_league);
+            $("#submitbutton").click(data_submit);
+        });
+
+
+    </script>
+    <h1 id="toptitle">請選擇聯賽</h1>
+<h2 id="htitle"></h2>
+
+<div id="maindata">
+{% for i in Leagues %}
+    <div id="league-{{ i.id }}" class="league_select">
+        <a href="#" league="{{ i.id }}">{{ i.name }}</a>
+
+    </div>
+
+{% endfor  %}
+
+</div>
+    <form id="form1" name="form1" method="post" action="">
+
+                <textarea  name="text" id="text" rows="5" cols="80" ></textarea>
+
+<br/>
+                <!--<input type="submit" name="button" id="button" value="提交" />-->
+    <input type="button" id="submitbutton" value="提交" />
+                </form>
+{% endblock %}

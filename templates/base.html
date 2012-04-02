@@ -52,6 +52,19 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 /* ~~ 标题未指定宽度。它将扩展到布局的完整宽度。标题包含一个图像占位符，该占位符应替换为您自己的链接徽标 ~~ */
 .header {
 	background: #6F7D94;
+    padding: 10px;
+    font-size: 13pt;
+}
+.header a:link {
+	color:#FFFFFF;
+	text-decoration: underline; /* 除非将链接设置成极为独特的外观样式，否则最好提供下划线，以便可从视觉上快速识别 */
+}
+.header a:visited {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.header a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠标使用者相同的悬停体验。 */
+	text-decoration: none;
 }
 
 /* ~~ 这是布局信息。 ~~ 
@@ -60,7 +73,7 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 
 */
 .content {
-	padding: 10px 0;
+	padding: 10px;
 }
 
 /* ~~ 此分组的选择器为 .content 区域中的列表提供了空间 ~~ */
@@ -89,14 +102,29 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 	font-size: 1px;
 	line-height: 0px;
 }
+
+#maindata {
+    margin: 30px;
+}
+#form1 {
+    display: none;
+}
 -->
 </style></head>
 
 <body>
 
 <div class="container">
-  <div class="header"><a href="#"><img src="" alt="在此处插入徽标" name="Insert_logo" width="20%" height="90" id="Insert_logo" style="background: #8090AB; display:block;" /></a> 
-    <!-- end .header --></div>
+  <div class="header">
+      欢迎你
+      | <a href="/">首页</a>
+      | <a href="/import/">導入數據</a>
+      | <a href="/admin/">數據管理</a>
+      | <a href="/accounts/logout/">退出</a>
+
+      
+      
+  </div>
   <div class="content">
 
 
@@ -105,7 +133,7 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 
     <!-- end .content --></div>
   <div class="footer">
-    <p>脚注</p>
+    <p>這不科學</p>
     <!-- end .footer --></div>
   <!-- end .container --></div>
 </body>

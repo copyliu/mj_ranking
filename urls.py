@@ -3,6 +3,7 @@ from django.conf.urls.defaults import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.contrib.auth.views import login, logout, password_change,password_change_done
+from mj_ranking import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -21,8 +22,10 @@ urlpatterns = patterns('',
 (r'^accounts/logout/$', logout),
 (r'^accounts/password/change/$',password_change),
 (r'^accounts/password/done/$', password_change_done),
-    (r'^leagues/(\d+)/',"mj_ranking.ranking.views.leagues"),
+   # (r'^leagues/(\d+)/',"mj_ranking.ranking.views.leagues"),
     (r'^$',"mj_ranking.ranking.views.home"),
-
+    (r'import/','mj_ranking.ranking.views.inputresult'),
+    (r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATICFILES_DIRS[0]}),
+    (r'^getJSON',"mj_ranking.ranking.views.JsonData"),
 
 )
