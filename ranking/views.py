@@ -121,7 +121,7 @@ def JsonData(request):
         returninfo["leagues"] = league
         returninfo["rounds"] = rounds
         MyJSON = dumps(returninfo, cls=DjangoJSONEncoder)
-        return django.shortcuts.HttpResponse('{callback}({json})'.format(callback=request.GET['callback'], json=MyJSON),
+        return django.shortcuts.HttpResponse('%s(%s)'%(request.GET['callback'],MyJSON),
             mimetype="application/json")
     if request.GET.get("show_group", ""):
         #SHOW GROUP
@@ -131,7 +131,7 @@ def JsonData(request):
         returninfo["round"] = round
         returninfo["groups"] = groups
         MyJSON = dumps(returninfo, cls=DjangoJSONEncoder)
-        return django.shortcuts.HttpResponse('{callback}({json})'.format(callback=request.GET['callback'], json=MyJSON),
+        return django.shortcuts.HttpResponse('%s(%s)'%(request.GET['callback'],MyJSON),
             mimetype="application/json")
 
     if request.GET.get("show_match", ""):
@@ -142,6 +142,6 @@ def JsonData(request):
         returninfo["group"] = group
         returninfo["matchs"] = matchs
         MyJSON = dumps(returninfo, cls=DjangoJSONEncoder)
-        return django.shortcuts.HttpResponse('{callback}({json})'.format(callback=request.GET['callback'], json=MyJSON),
+        return django.shortcuts.HttpResponse('%s(%s)'%(request.GET['callback'],MyJSON),
             mimetype="application/json")
 
