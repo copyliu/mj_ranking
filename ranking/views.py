@@ -37,7 +37,7 @@ def inputresult(request):
         c["Leagues"] = Leagues
         return django.shortcuts.render_to_response('inputresult.html', c)
     elif request.method == "POST":
-        returninfo = {"error": 0, "msg": "保存成功"}
+        returninfo = {"error": 0, "msg": u"保存成功"}
 
         if request.POST.get("type", "") and request.POST.get("match", ""):
             #只會有ajax啦
@@ -46,21 +46,21 @@ def inputresult(request):
 
             if not lines:
                 returninfo["error"] = -1
-                returninfo["msg"] = "沒有收到任何數據"
+                returninfo["msg"] = u"沒有收到任何數據"
 
                 MyJSON = dumps(returninfo)#,cls=DjangoJSONEncoder)
                 return django.shortcuts.HttpResponse(MyJSON,
                     mimetype="application/json")
             if database.Detail.objects.filter(match=match).count()>0:
                 returninfo["error"] = -1
-                returninfo["msg"] = "該場已有數據"
+                returninfo["msg"] = u"該場已有數據"
 
                 MyJSON = dumps(returninfo)#,cls=DjangoJSONEncoder)
                 return django.shortcuts.HttpResponse(MyJSON,
                     mimetype="application/json")
             if not 2 < len(lines) < 5:
                 returninfo["error"] = -1
-                returninfo["msg"] = "參與人數不正確"
+                returninfo["msg"] = u"參與人數不正確"
 
                 MyJSON = dumps(returninfo)#,cls=DjangoJSONEncoder)
                 return django.shortcuts.HttpResponse(MyJSON,
@@ -72,13 +72,13 @@ def inputresult(request):
                 #名字|对局数|和了|放铳|立直|最高和了|最高放铳|顺位|最终点数|副露|对局名
                 if len(datas) < 10:
                     returninfo["error"] = -1
-                    returninfo["msg"] = "數據不完整"
+                    returninfo["msg"] = u"數據不完整"
                     MyJSON = dumps(returninfo)#,cls=DjangoJSONEncoder)
                     return django.shortcuts.HttpResponse(MyJSON, mimetype="application/json")
                 MatchUser = database.Users.objects.filter(jrm_id=datas[0]).all()
                 if not len(MatchUser):
                     returninfo["error"] = -1
-                    returninfo["msg"] = "參賽者 : " + datas[0] + " 不存在, 請檢查名字或到後臺添加"
+                    returninfo["msg"] = u"參賽者 : " + datas[0] + u" 不存在, 請檢查名字或到後臺添加"
                     MyJSON = dumps(returninfo)#,cls=DjangoJSONEncoder)
                     return django.shortcuts.HttpResponse(MyJSON, mimetype="application/json")
                     #名字|对局数|和了|放铳|立直|最高和了|最高放铳|顺位|最终点数|副露|对局名
@@ -98,7 +98,7 @@ def inputresult(request):
                     ModelsDT.append(d)
                 except:
                     returninfo["error"] = -1
-                    returninfo["msg"] = "數據格式錯誤"
+                    returninfo["msg"] = u"數據格式錯誤"
                     MyJSON = dumps(returninfo)#,cls=DjangoJSONEncoder)
                     return django.shortcuts.HttpResponse(MyJSON, mimetype="application/json")
             for i in ModelsDT:
