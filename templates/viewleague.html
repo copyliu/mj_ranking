@@ -13,7 +13,76 @@
     <link href="/static/kendoui/style/kendo.metro.min.css" rel="stylesheet" type="text/css"/>
 
     <script type="text/javascript">
+        function rate(value1, all) {
+            return value1 / all;
+        }
+        var col1=[
+                            {field:"jrm_id",
+                                title:"雀龍門ID"},
+                            {field:"game",
+                                title:"對局(配牌)數"},
+                            {field:"win",
+                                title:"和了數"
+                            },
+                            {field:"lose",
+                                title:"放銃數"},
+                            {field:"reach",
+                                title:"立直數"},
+                            {field:"hulo",
+                                title:"副露數"},
+                            {field:"win_max",
+                                title:"最大和了點"},
+                            {field:"lose_max",
+                                title:"最大放銃點"},
+                            {field:"rank",
+                                title:"平均順位"},
+                            {field:"rank1",
+                                title:"一位"},
+                            {field:"rank2",
+                                title:"二位"},
+                            {field:"rank3",
+                                title:"三位"},
+                            {field:"rank4",
+                                title:"四位"}
 
+
+                        ];
+
+
+        var col2=[
+                                    {field:"jrm_id",
+                                        title:"雀龍門ID"},
+                                    {field:"game",
+                                        title:"對局(配牌)數"},
+                                    {field:"win",
+                                        title:"和了率",
+                                        template:"#= kendo.toString(rate(win,game),'p') #"},
+                                    {field:"lose",
+                                        title:"放銃率",
+                                        template:"#= kendo.toString(rate(lose,game),'p') #"},
+                                    {field:"reach",
+                                        title:"立直率",
+                                        template:"#= kendo.toString(rate(reach,game),'p') #"},
+                                    {field:"hulo",
+                                        title:"副露率",
+                                        template:"#= kendo.toString(rate(hulo,game),'p') #"},
+                                    {field:"win_max",
+                                        title:"最大和了點"},
+                                    {field:"lose_max",
+                                        title:"最大放銃點"},
+                                    {field:"rank",
+                                        title:"平均順位"},
+                                    {field:"rank1",template:"#= kendo.toString(rate(rank1,game),'p') #",
+                                        title:"一位"},
+                                    {field:"rank2",template:"#= kendo.toString(rate(rank2,game),'p') #",
+                                        title:"二位"},
+                                    {field:"rank3",template:"#= kendo.toString(rate(rank3,game),'p') #",
+                                        title:"三位"},
+                                    {field:"rank4",template:"#= kendo.toString(rate(rank4,game),'p') #",
+                                        title:"四位"}
+
+
+                                ];
         var dataSource = new kendo.data.DataSource({
 
             type:"jsonp",
@@ -38,37 +107,47 @@
                 dataSource:dataSource,
                 filterable:true,
                 sortable:true,
-                columns:[
-                    {field:"jrm_id",
-                        title:"雀龍門ID"},
-                    {field:"game",
-                        title:"對局(配牌)數"},
-                    {field:"win",
-                        title:"和了數"},
-                    {field:"lose",
-                        title:"放銃數"},
-                    {field:"reach",
-                        title:"立直數"},
-                    {field:"hulo",
-                        title:"副露數"},
-                    {field:"win_max",
-                        title:"最大和了點"},
-                    {field:"lose_max",
-                        title:"最大放銃點"},
-                    {field:"rank",
-                        title:"平均順位"}
-
-
-                ]
+                scrollable:true,
+                columns:col2
 
 
             });
+            $("#showval").click(function(){
+                $("#grid").kendoGrid({
+                                dataSource:dataSource,
+                                filterable:true,
+                                sortable:true,
+                                scrollable:true,
+                                columns:col1
+
+
+                            });
+                var grid=$("#grid").data("kendoGrid");
+                grid.refresh();
+                return false;
+            });
+            $("#showrate").click(function(){
+                $("#grid").kendoGrid({
+                                                dataSource:dataSource,
+                                                filterable:true,
+                                                sortable:true,
+                                                scrollable:true,
+                                                columns:col2
+
+
+                                            });
+                var grid=$("#grid").data("kendoGrid");
+                grid.refresh();
+                            return false;
+                        });
+
         });
 
 
     </script>
 
     <h1>{{ League.name }} 綜合通算</h1>
+   <!-- <a href="#" id="showval">顯示數值</a> | <a href="#" id="showrate">顯示比率</a><br>-->
     <!--
 {% for i in League.round_set.all %}
 {{ i.name }}<br>

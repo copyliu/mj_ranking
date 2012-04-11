@@ -185,6 +185,11 @@ def getJSONv2(request):
             reach=sum([ abs(i.reach) for i in udetail ])
             win=sum([ abs(i.win) for i in udetail ])
             win_max=max([ abs(i.win_max) for i in udetail ])
+
+            rank1=[ i.rank for i in udetail ].count(1)
+            rank2=[ i.rank for i in udetail ].count(2)
+            rank3=[ i.rank for i in udetail ].count(3)
+            rank4=[ i.rank for i in udetail ].count(4)
             result.append({
                 "jrm_id":u.jrm_id,
                 "hulo":hulo,
@@ -195,7 +200,13 @@ def getJSONv2(request):
                             "rank":rank,
                             "reach":reach,
                             "win":win,
-                            "win_max":win_max,})
+                            "win_max":win_max,
+                            "rank1":rank1,
+                            "rank2":rank2,
+                            "rank3":rank3,
+                            "rank4":rank4,
+
+                            })
         webreturn={"result":result}
         MyJSON = dumps(result, cls=DjangoJSONEncoder)
         return django.shortcuts.HttpResponse(MyJSON)
