@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Create your views here.
 from django.db.models.query import QuerySet
+from django.shortcuts import render_to_response
 
 import mj_ranking.ranking.models as database
 import django.shortcuts
@@ -145,3 +146,14 @@ def JsonData(request):
         return django.shortcuts.HttpResponse('%s(%s)'%(request.GET['callback'],MyJSON),
             mimetype="application/json")
 
+
+def viewleague(request, p1):
+    c = {}
+    League = database.Leagues.objects.get(pk=p1)
+    c["League"] = League
+    return render_to_response('viewleague.html' ,c)
+
+
+def getJSONv2(request):
+
+    return django.shortcuts.HttpResponse("")

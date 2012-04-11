@@ -1,5 +1,14 @@
 {% extends "base.html" %}
-{% block title  %}錄入姿勢{% endblock %}
+{% block title  %}首頁{% endblock %}
 {% block content  %}
-    <h1>建設中</h1>
+    <h1>聯賽選擇</h1>
+    <ul>
+
+    {% for i in Leagues %}
+
+        <li><a href="{% url  mj_ranking.ranking.views.viewleague i.pk  %}">{{  i.name}}</a></li>
+
+    {% endfor %}
+
+    </ul>
 {% endblock %}

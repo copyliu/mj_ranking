@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}聯賽公示板{% endblock %}
+{% block content %}
+
+
+
+    <!--Then paste the following for Kendo UI Web scripts-->
+    <script src="/static/kendoui/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/kendoui/js/kendo.web.min.js" type="text/javascript"></script>
+
+    <!--In the header of your page, paste the following for Kendo UI Web styles-->
+    <link href="/static/kendoui/style/kendo.common.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/kendoui/style/kendo.metro.min.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript">
+
+        var dataSource = new kendo.data.DataSource({
+
+            type:"jsonp",
+                                transport:{
+                                    read:{
+
+                                        url:"/getJSONv2",
+                                        data:{
+                                            lid:"{{ League.pk }}"
+                                        }
+                                    }
+
+                                },
+                                schema:{
+                                    data:"result"
+                                }
+
+        });
+
+        $(document).ready(function () {
+            $("#grid").kendoGrid({
+                dataSource:dataSource,
+                height:250,
+                sortable:true,
+                pageable:true,
+                columns:[
+                    {
+                        field:"OrderID",
+                        filterable:false
+                    },
+                    "Freight",
+                    {
+                        field:"OrderDate"
+
+                    },
+                    "ShipName",
+                    "ShipCity"
+                ]
+            });
+        });
+
+
+    </script>
+
+    <h1>{{ League.name }} 綜合通算</h1>
+    <!--
+{% for i in League.round_set.all %}
+{{ i.name }}<br>
+    {% endfor %}
+-->
+
+    <div id="grid">
+    </div>
+{% endblock %}
