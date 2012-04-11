@@ -17,41 +17,51 @@
         var dataSource = new kendo.data.DataSource({
 
             type:"jsonp",
-                                transport:{
-                                    read:{
+            transport:{
+                read:{
 
-                                        url:"/getJSONv2",
-                                        data:{
-                                            lid:"{{ League.pk }}"
-                                        }
-                                    }
+                    url:"/getJSONv2",
+                    data:{
+                        lid:"{{ League.pk }}"
+                    },
+                    dataType:"json"
 
-                                },
-                                schema:{
-                                    data:"result"
-                                }
+                }
+
+            }
+
 
         });
 
         $(document).ready(function () {
             $("#grid").kendoGrid({
                 dataSource:dataSource,
-                height:250,
+                filterable:true,
                 sortable:true,
-                pageable:true,
                 columns:[
-                    {
-                        field:"OrderID",
-                        filterable:false
-                    },
-                    "Freight",
-                    {
-                        field:"OrderDate"
+                    {field:"jrm_id",
+                        title:"雀龍門ID"},
+                    {field:"game",
+                        title:"對局(配牌)數"},
+                    {field:"win",
+                        title:"和了數"},
+                    {field:"lose",
+                        title:"放銃數"},
+                    {field:"reach",
+                        title:"立直數"},
+                    {field:"hulo",
+                        title:"副露數"},
+                    {field:"win_max",
+                        title:"最大和了點"},
+                    {field:"lose_max",
+                        title:"最大放銃點"},
+                    {field:"rank",
+                        title:"平均順位"}
 
-                    },
-                    "ShipName",
-                    "ShipCity"
+
                 ]
+
+
             });
         });
 

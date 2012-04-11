@@ -2,7 +2,7 @@
 # Create your views here.
 from django.db.models.query import QuerySet
 from django.shortcuts import render_to_response
-
+from django.db.models import *
 import mj_ranking.ranking.models as database
 import django.shortcuts
 from django.contrib.auth.decorators import login_required
@@ -155,5 +155,47 @@ def viewleague(request, p1):
 
 
 def getJSONv2(request):
+    if request.GET.get("lid", ""):
+        lid = int(request.GET["lid"])
 
-    return django.shortcuts.HttpResponse("")
+        League= database.Leagues.objects.get(pk=lid)
+        alluser=database.Users.objects.filter(detail__match__group__round__leagues__id=1).distinct()
+        alldetail=database.Detail.objects.filter(match__group__round__leagues__id=lid).select_related()
+        result=[]
+        for u in alluser:
+
+#
+#            hulo=alldetail.filter(user=u).aggregate(agg=Sum("hulo"))["agg"]
+#            game=alldetail.filter(user=u).aggregate(agg=Sum("game"))["agg"]
+#            lose=alldetail.filter(user=u).aggregate(agg=Sum("lose"))["agg"]
+#            lose_max=max([ abs(i["lose_max"]) for i in alldetail.filter(user=u).values("lose_max") ])
+#            end_point=alldetail.filter(user=u).aggregate(agg=Avg("end_point"))["agg"]
+#            rank=alldetail.filter(user=u).aggregate(agg=Avg("rank"))["agg"]
+#            reach=alldetail.filter(user=u).aggregate(agg=Sum("reach"))["agg"]
+#            win=alldetail.filter(user=u).aggregate(agg=Sum("win"))["agg"]
+#            win_max=alldetail.filter(user=u).aggregate(agg=Max("win_max"))["agg"]
+
+            udetail=alldetail.filter(user=u).select_related()
+            hulo=sum([ abs(i.hulo) for i in udetail ])
+            game=sum([ abs(i.game) for i in udetail ])
+            lose=sum([ abs(i.lose) for i in udetail ])
+            lose_max=max([ abs(i.lose_max) for i in udetail ])
+            end_point=round(float(sum([ i.end_point for i in udetail ]))/udetail.count(),2)
+            rank=round(float(sum([ i.rank for i in udetail ]))/udetail.count(),2)
+            reach=sum([ abs(i.reach) for i in udetail ])
+            win=sum([ abs(i.win) for i in udetail ])
+            win_max=max([ abs(i.win_max) for i in udetail ])
+            result.append({
+                "jrm_id":u.jrm_id,
+                "hulo":hulo,
+                "game":game,
+                            "lose":lose,
+                            "lose_max":lose_max,
+                            "end_point":end_point,
+                            "rank":rank,
+                            "reach":reach,
+                            "win":win,
+                            "win_max":win_max,})
+        webreturn={"result":result}
+        MyJSON = dumps(result, cls=DjangoJSONEncoder)
+        return django.shortcuts.HttpResponse(MyJSON)

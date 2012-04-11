@@ -26,8 +26,9 @@ urlpatterns = patterns('',
     (r'^$',"mj_ranking.ranking.views.home"),
     (r'import/','mj_ranking.ranking.views.inputresult'),
     (r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATICFILES_DIRS[0]}),
-    (r'^getJSON',"mj_ranking.ranking.views.JsonData"),
+
     (r"^view/(\d+)/$","mj_ranking.ranking.views.viewleague"),
     (r'^getJSONv2',"mj_ranking.ranking.views.getJSONv2"),
+    (r'^getJSON',"mj_ranking.ranking.views.JsonData"),
 
 )
