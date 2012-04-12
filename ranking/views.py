@@ -203,7 +203,7 @@ def getJSONv2(request):
             rank4_rate=round(float(rank4)/count,4)
             bu=len([i.rank for i in udetail if i.end_point<=0])
             bu_rate=round(float(bu)/count,4)
-            pt=rank1*20+rank2*10+rank3*-5+rank4*-10
+            pt=rank1*20+rank2*10+rank3*-5+rank4*-20
             result.append({
                 "jrm_id":u.jrm_id,
                 "hulo":hulo,
