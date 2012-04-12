@@ -203,6 +203,7 @@ def getJSONv2(request):
             rank4_rate=round(float(rank4)/count,4)
             bu=len([i.rank for i in udetail if i.end_point<=0])
             bu_rate=round(float(bu)/count,4)
+            pt=rank1*20+rank2*10+rank3*-5+rank4*-10
             result.append({
                 "jrm_id":u.jrm_id,
                 "hulo":hulo,
@@ -229,7 +230,8 @@ def getJSONv2(request):
                 "count":count,
                 "bu":bu,
                 "bu_rate":bu_rate,
-                "end_point_max":end_point_max
+                "end_point_max":end_point_max,
+                "pt":pt
 
 
 
