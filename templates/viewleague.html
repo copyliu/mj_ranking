@@ -12,91 +12,127 @@
     <link href="/static/kendoui/style/kendo.common.min.css" rel="stylesheet" type="text/css"/>
     <link href="/static/kendoui/style/kendo.default.min.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-    .content {font-size: 11px}
+        .content {
+            font-size: 11px
+        }
 
     </style>
     <script type="text/javascript">
         function rate(value1, all) {
             return value1 / all;
         }
-        var col1=[
-                            {field:"jrm_id",
-                                title:"雀龍門ID",
-                                width:"120px"},
-                            {field:"game",
-                                title:"配牌數"},
-                            {field:"win",
-                                title:"和了數"
-                            },
-                            {field:"lose",
-                                title:"放銃數"},
-                            {field:"reach",
-                                title:"立直數"},
-                            {field:"hulo",
-                                title:"副露數"},
-                            {field:"win_max",
-                                title:"最大和了點"},
-                            {field:"lose_max",
-                                title:"最大放銃點"},{field:"end_point",
-                title:"平均終了點"},
-            {field:"end_point_max",
-                title:"最大終了點"},
-                            {field:"rank",
-                                title:"平均順位"},
-                            {field:"rank1",
-                                title:"一位"},
-                            {field:"rank2",
-                                title:"二位"},
-                            {field:"rank3",
-                                title:"三位"},
-                            {field:"rank4",
-                                title:"四位"},
-            {field:"bu",
-                title:"飛"}
-
-
-                        ];
-
-
-        var col2=[
-                                    {field:"jrm_id",
-                                        title:"雀龍門ID",
-                                    width:"120px"},
-                                    {field:"game",
-                                        title:"配牌數"},
-                                    {field:"win_rate",
-                                        title:"和了率",
-                                        template:"#= kendo.toString(win_rate,'p') #"},
-                                    {field:"lose_rate",
-                                        title:"放銃率",
-                                        template:"#= kendo.toString(lose_rate,'p') #"},
-                                    {field:"reach_rate",
-                                        title:"立直率",
-                                        template:"#= kendo.toString(reach_rate,'p') #"},
-                                    {field:"hulo_rate",
-                                        title:"副露率",
-                                        template:"#= kendo.toString(hulo_rate,'p') #"},
-                                    {field:"win_max",
-                                        title:"最大和了點"},
-                                    {field:"lose_max",
-                                        title:"最大放銃點"},
+        var col1 = [
+            {field:"jrm_id",
+                title:"雀龍門ID",
+                width:"120px",
+                filterable:true},
+            {field:"game",
+                title:"配牌數",
+                filterable:false},
+            {field:"win",
+                title:"和了數",
+                filterable:false
+            },
+            {field:"lose",
+                title:"放銃數",
+                filterable:false},
+            {field:"reach",
+                title:"立直數",
+                filterable:false},
+            {field:"hulo",
+                title:"副露數",
+                filterable:false},
+            {field:"win_max",
+                title:"最大和了點",
+                filterable:false},
+            {field:"lose_max",
+                title:"最大放銃點",
+                filterable:false},
             {field:"end_point",
-                title:"平均終了點"},{field:"end_point_max",
-                title:"最大終了點"},
-                                    {field:"rank",
-                                        title:"平均順位"},
-                                    {field:"rank1_rate",template:"#= kendo.toString(rank1_rate,'p') #",
-                                        title:"一位"},
-                                    {field:"rank2_rate",template:"#= kendo.toString(rank2_rate,'p') #",
-                                        title:"二位"},
-                                    {field:"rank3_rate",template:"#= kendo.toString(rank3_rate,'p') #",
-                                        title:"三位"},
-                                    {field:"rank4_rate",template:"#= kendo.toString(rank4_rate,'p') #",
-                                        title:"四位"},
-            {field:"bu_rate",template:"#= kendo.toString(bu_rate,'p') #",
-                title:"飛翔率"}
+                title:"平均終了點",
+                filterable:false},
+            {field:"end_point_max",
+                title:"最大終了點",
+                filterable:false},
+            {field:"rank",
+                title:"平均順位",
+                filterable:false},
+            {field:"rank1",
+                title:"一位",
+                filterable:false},
+            {field:"rank2",
+                title:"二位",
+                filterable:false},
+            {field:"rank3",
+                title:"三位",
+                filterable:false},
+            {field:"rank4",
+                title:"四位",
+                filterable:false},
+            {field:"bu",
+                title:"飛",
+                filterable:false}
 
-                                ];
+
+        ];
+
+
+        var col2 = [
+            {field:"jrm_id",
+                title:"雀龍門ID",
+                width:"120px",
+                filterable:true},
+            {field:"game",
+                title:"配牌數",
+                filterable:false},
+            {field:"win_rate",
+                title:"和了率",
+                filterable:false,
+                template:"#= kendo.toString(win_rate,'p') #"},
+            {field:"lose_rate",
+                title:"放銃率",
+                filterable:false,
+                template:"#= kendo.toString(lose_rate,'p') #"},
+            {field:"reach_rate",
+                title:"立直率",
+                filterable:false,
+                template:"#= kendo.toString(reach_rate,'p') #"},
+            {field:"hulo_rate",
+                title:"副露率",
+                filterable:false,
+                template:"#= kendo.toString(hulo_rate,'p') #"},
+            {field:"win_max",
+                title:"最大和了點",
+                filterable:false},
+            {field:"lose_max",
+                title:"最大放銃點",
+                filterable:false},
+            {field:"end_point",
+                title:"平均終了點",
+                filterable:false},
+            {field:"end_point_max",
+                title:"最大終了點",
+                filterable:false},
+            {field:"rank",
+                title:"平均順位",
+                filterable:false},
+            {field:"rank1_rate", template:"#= kendo.toString(rank1_rate,'p') #",
+                title:"一位",
+                filterable:false},
+            {field:"rank2_rate", template:"#= kendo.toString(rank2_rate,'p') #",
+                title:"二位",
+                filterable:false},
+            {field:"rank3_rate", template:"#= kendo.toString(rank3_rate,'p') #",
+                title:"三位",
+                filterable:false},
+            {field:"rank4_rate", template:"#= kendo.toString(rank4_rate,'p') #",
+                title:"四位",
+                filterable:false},
+            {field:"bu_rate", template:"#= kendo.toString(bu_rate,'p') #",
+                title:"飛翔率",
+                filterable:false}
+
+        ];
         var dataSource = new kendo.data.DataSource({
 
             type:"jsonp",
@@ -119,43 +155,43 @@
         $(document).ready(function () {
             $("#grid").kendoGrid({
                 dataSource:dataSource,
-                filterable:false,
+                filterable:true,
                 sortable:true,
                 scrollable:true,
                 columns:col1
 
 
             });
-            $("#showval").click(function(){
+            $("#showval").click(function () {
                 $("#grid").empty();
                 $("#grid").kendoGrid({
-                                dataSource:dataSource,
-                                filterable:false,
-                                sortable:true,
-                                scrollable:true,
-                                columns:col1
+                    dataSource:dataSource,
+                    filterable:false,
+                    sortable:true,
+                    scrollable:true,
+                    columns:col1
 
 
-                            });
-                var grid=$("#grid").data("kendoGrid");
+                });
+                var grid = $("#grid").data("kendoGrid");
                 grid.refresh();
                 return false;
             });
-            $("#showrate").click(function(){
+            $("#showrate").click(function () {
                 $("#grid").empty();
                 $("#grid").kendoGrid({
-                                                dataSource:dataSource,
-                                                filterable:false,
-                                                sortable:true,
-                                                scrollable:true,
-                                                columns:col2
+                    dataSource:dataSource,
+                    filterable:false,
+                    sortable:true,
+                    scrollable:true,
+                    columns:col2
 
 
-                                            });
-                var grid=$("#grid").data("kendoGrid");
+                });
+                var grid = $("#grid").data("kendoGrid");
                 grid.refresh();
-                            return false;
-                        });
+                return false;
+            });
 
         });
 
