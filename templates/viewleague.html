@@ -21,9 +21,10 @@
         }
         var col1=[
                             {field:"jrm_id",
-                                title:"雀龍門ID"},
+                                title:"雀龍門ID",
+                                width:"120px"},
                             {field:"game",
-                                title:"對局(配牌)數"},
+                                title:"配牌數"},
                             {field:"win",
                                 title:"和了數"
                             },
@@ -38,6 +39,8 @@
                             {field:"lose_max",
                                 title:"最大放銃點"},{field:"end_point",
                 title:"平均終了點"},
+            {field:"end_point_max",
+                title:"最大終了點"},
                             {field:"rank",
                                 title:"平均順位"},
                             {field:"rank1",
@@ -57,9 +60,10 @@
 
         var col2=[
                                     {field:"jrm_id",
-                                        title:"雀龍門ID"},
+                                        title:"雀龍門ID",
+                                    width:"120px"},
                                     {field:"game",
-                                        title:"對局(配牌)數"},
+                                        title:"配牌數"},
                                     {field:"win_rate",
                                         title:"和了率",
                                         template:"#= kendo.toString(win_rate,'p') #"},
@@ -77,7 +81,8 @@
                                     {field:"lose_max",
                                         title:"最大放銃點"},
             {field:"end_point",
-                title:"平均終了點"},
+                title:"平均終了點"},{field:"end_point_max",
+                title:"最大終了點"},
                                     {field:"rank",
                                         title:"平均順位"},
                                     {field:"rank1_rate",template:"#= kendo.toString(rank1_rate,'p') #",

@@ -185,6 +185,7 @@ def getJSONv2(request):
             lose_rate=round(float(lose)/game,4)
             lose_max=max([ abs(i.lose_max) for i in udetail ])
             end_point=round(float(sum([ i.end_point for i in udetail ]))/count,2)
+            end_point_max=max([ i.end_point for i in udetail ])
             rank=round(float(sum([ i.rank for i in udetail ]))/count,2)
             reach=sum([ abs(i.reach) for i in udetail ])
             reach_rate=round(float(reach)/game,4)
@@ -227,7 +228,8 @@ def getJSONv2(request):
                 "rank4_rate":rank4_rate,
                 "count":count,
                 "bu":bu,
-                "bu_rate":bu_rate
+                "bu_rate":bu_rate,
+                "end_point_max":end_point_max
 
 
 
