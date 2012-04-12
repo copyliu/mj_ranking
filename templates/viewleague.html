@@ -10,8 +10,11 @@
 
     <!--In the header of your page, paste the following for Kendo UI Web styles-->
     <link href="/static/kendoui/style/kendo.common.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/static/kendoui/style/kendo.metro.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/kendoui/style/kendo.default.min.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+    .content {font-size: 11px}
 
+    </style>
     <script type="text/javascript">
         function rate(value1, all) {
             return value1 / all;
@@ -33,7 +36,8 @@
                             {field:"win_max",
                                 title:"最大和了點"},
                             {field:"lose_max",
-                                title:"最大放銃點"},
+                                title:"最大放銃點"},{field:"end_point",
+                title:"平均終了點"},
                             {field:"rank",
                                 title:"平均順位"},
                             {field:"rank1",
@@ -43,7 +47,9 @@
                             {field:"rank3",
                                 title:"三位"},
                             {field:"rank4",
-                                title:"四位"}
+                                title:"四位"},
+            {field:"bu",
+                title:"飛"}
 
 
                         ];
@@ -54,33 +60,36 @@
                                         title:"雀龍門ID"},
                                     {field:"game",
                                         title:"對局(配牌)數"},
-                                    {field:"win",
+                                    {field:"win_rate",
                                         title:"和了率",
-                                        template:"#= kendo.toString(rate(win,game),'p') #"},
-                                    {field:"lose",
+                                        template:"#= kendo.toString(win_rate,'p') #"},
+                                    {field:"lose_rate",
                                         title:"放銃率",
-                                        template:"#= kendo.toString(rate(lose,game),'p') #"},
-                                    {field:"reach",
+                                        template:"#= kendo.toString(lose_rate,'p') #"},
+                                    {field:"reach_rate",
                                         title:"立直率",
-                                        template:"#= kendo.toString(rate(reach,game),'p') #"},
-                                    {field:"hulo",
+                                        template:"#= kendo.toString(reach_rate,'p') #"},
+                                    {field:"hulo_rate",
                                         title:"副露率",
-                                        template:"#= kendo.toString(rate(hulo,game),'p') #"},
+                                        template:"#= kendo.toString(hulo_rate,'p') #"},
                                     {field:"win_max",
                                         title:"最大和了點"},
                                     {field:"lose_max",
                                         title:"最大放銃點"},
+            {field:"end_point",
+                title:"平均終了點"},
                                     {field:"rank",
                                         title:"平均順位"},
-                                    {field:"rank1",template:"#= kendo.toString(rate(rank1,game),'p') #",
+                                    {field:"rank1_rate",template:"#= kendo.toString(rank1_rate,'p') #",
                                         title:"一位"},
-                                    {field:"rank2",template:"#= kendo.toString(rate(rank2,game),'p') #",
+                                    {field:"rank2_rate",template:"#= kendo.toString(rank2_rate,'p') #",
                                         title:"二位"},
-                                    {field:"rank3",template:"#= kendo.toString(rate(rank3,game),'p') #",
+                                    {field:"rank3_rate",template:"#= kendo.toString(rank3_rate,'p') #",
                                         title:"三位"},
-                                    {field:"rank4",template:"#= kendo.toString(rate(rank4,game),'p') #",
-                                        title:"四位"}
-
+                                    {field:"rank4_rate",template:"#= kendo.toString(rank4_rate,'p') #",
+                                        title:"四位"},
+            {field:"bu_rate",template:"#= kendo.toString(bu_rate,'p') #",
+                title:"飛翔率"}
 
                                 ];
         var dataSource = new kendo.data.DataSource({
@@ -105,7 +114,7 @@
         $(document).ready(function () {
             $("#grid").kendoGrid({
                 dataSource:dataSource,
-                filterable:true,
+                filterable:false,
                 sortable:true,
                 scrollable:true,
                 columns:col1
@@ -113,9 +122,10 @@
 
             });
             $("#showval").click(function(){
+                $("#grid").empty();
                 $("#grid").kendoGrid({
                                 dataSource:dataSource,
-                                filterable:true,
+                                filterable:false,
                                 sortable:true,
                                 scrollable:true,
                                 columns:col1
@@ -127,9 +137,10 @@
                 return false;
             });
             $("#showrate").click(function(){
+                $("#grid").empty();
                 $("#grid").kendoGrid({
                                                 dataSource:dataSource,
-                                                filterable:true,
+                                                filterable:false,
                                                 sortable:true,
                                                 scrollable:true,
                                                 columns:col2
@@ -147,7 +158,7 @@
     </script>
 
     <h1>{{ League.name }} 綜合通算</h1>
-   <!-- <a href="#" id="showval">顯示數值</a> | <a href="#" id="showrate">顯示比率</a><br>-->
+    <a href="#" id="showval">顯示數值</a> | <a href="#" id="showrate">顯示比率</a><br>-->
     <!--
 {% for i in League.round_set.all %}
 {{ i.name }}<br>

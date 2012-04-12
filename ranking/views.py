@@ -174,37 +174,63 @@ def getJSONv2(request):
 #            reach=alldetail.filter(user=u).aggregate(agg=Sum("reach"))["agg"]
 #            win=alldetail.filter(user=u).aggregate(agg=Sum("win"))["agg"]
 #            win_max=alldetail.filter(user=u).aggregate(agg=Max("win_max"))["agg"]
-
             udetail=alldetail.filter(user=u).select_related()
-            hulo=sum([ abs(i.hulo) for i in udetail ])
+
+            count=udetail.count()
             game=sum([ abs(i.game) for i in udetail ])
+            hulo=sum([ abs(i.hulo) for i in udetail ])
+            hulo_rate=round(float(hulo)/game,4)
+
             lose=sum([ abs(i.lose) for i in udetail ])
+            lose_rate=round(float(lose)/game,4)
             lose_max=max([ abs(i.lose_max) for i in udetail ])
-            end_point=round(float(sum([ i.end_point for i in udetail ]))/udetail.count(),2)
-            rank=round(float(sum([ i.rank for i in udetail ]))/udetail.count(),2)
+            end_point=round(float(sum([ i.end_point for i in udetail ]))/count,2)
+            rank=round(float(sum([ i.rank for i in udetail ]))/count,2)
             reach=sum([ abs(i.reach) for i in udetail ])
+            reach_rate=round(float(reach)/game,4)
             win=sum([ abs(i.win) for i in udetail ])
+            win_rate=round(float(win)/game,4)
             win_max=max([ abs(i.win_max) for i in udetail ])
 
             rank1=[ i.rank for i in udetail ].count(1)
+            rank1_rate=round(float(rank1)/count,4)
             rank2=[ i.rank for i in udetail ].count(2)
+            rank2_rate=round(float(rank1)/count,4)
             rank3=[ i.rank for i in udetail ].count(3)
+            rank3_rate=round(float(rank1)/count,4)
             rank4=[ i.rank for i in udetail ].count(4)
+            rank4_rate=round(float(rank1)/count,4)
+            bu=len([i.rank for i in udetail if i.end_point<=0])
+            bu_rate=round(float(bu)/count,4)
             result.append({
                 "jrm_id":u.jrm_id,
                 "hulo":hulo,
                 "game":game,
-                            "lose":lose,
-                            "lose_max":lose_max,
-                            "end_point":end_point,
-                            "rank":rank,
-                            "reach":reach,
-                            "win":win,
-                            "win_max":win_max,
-                            "rank1":rank1,
-                            "rank2":rank2,
-                            "rank3":rank3,
-                            "rank4":rank4,
+                "lose":lose,
+                "lose_max":lose_max,
+                "end_point":end_point,
+                "rank":rank,
+                "reach":reach,
+                "win":win,
+                "win_max":win_max,
+                "rank1":rank1,
+                "rank2":rank2,
+                "rank3":rank3,
+                "rank4":rank4,
+                "lose_rate":lose_rate,
+                "hulo_rate":hulo_rate,
+                "reach_rate":reach_rate,
+                "win_rate":win_rate,
+                "rank1_rate":rank1_rate,
+                "rank2_rate":rank2_rate,
+                "rank3_rate":rank3_rate,
+                "rank4_rate":rank4_rate,
+                "count":count,
+                "bu":bu,
+                "bu_rate":bu_rate
+
+
+
 
                             })
         webreturn={"result":result}
