@@ -78,7 +78,7 @@ class Detail(models.Model):
     class Meta:
         verbose_name_plural=verbose_name="對局情報"
     def __unicode__(self):
-        return self.match.group.round.leagues.name+self.match.group.round.name+self.match.group.name+self.match.name+self.match.name+u": "+unicode(self.user)
+        return self.match.group.round.leagues.name+self.match.group.round.name+self.match.group.name+self.match.name+u": "+unicode(self.user)
     def _get_lose_max(self):
         return abs(self.lose_max)
     lose_max_abs = property(_get_lose_max)
