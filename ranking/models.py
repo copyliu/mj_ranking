@@ -83,7 +83,7 @@ class Detail(models.Model):
         return abs(self.lose_max)
     lose_max_abs = property(_get_lose_max)
 class DetailAdmin(admin.ModelAdmin):
-    list_display = ("user","match")
+    list_display = ("__unicode__","match")
     list_filter = ( "match__group__round__leagues","match__group__round")
 
 
