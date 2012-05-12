@@ -103,7 +103,7 @@ MIDDLEWARE_CLASSES = (
     #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'mj_ranking.urls'
@@ -122,9 +122,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'mj_ranking.ranking',
-    'debug_toolbar',
+    #'debug_toolbar',
 )
-
+ADMINS = (("CopyLiu","copyliu@gmail.com"),)
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.
@@ -147,3 +147,4 @@ LOGGING = {
         },
     }
 }
+INTERNAL_IPS = ('127.0.0.1',)
