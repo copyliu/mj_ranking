@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.serializers import serialize
 from django.utils.simplejson import dumps, loads, JSONEncoder
 from django.db import models
-
+from mj_ranking import haifulib
 class DjangoJSONEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, QuerySet):
@@ -43,8 +43,19 @@ def inputresult(request):
         if request.POST.get("type", "") and request.POST.get("match", ""):
             #只會有ajax啦
             match = database.Match.objects.get(id=int(request.POST["match"]))
-            lines = request.POST.get("value", "").splitlines()
 
+            lines=None
+            tenhouurl = request.POST.get("tenhouurl","")
+            if tenhouurl:
+                try:
+                    lines=[]
+                    result=haifulib.parsehaifuurl(tenhouurl)
+                    for i in result:
+                        lines.append( u"|".join(unicode(x) for x in i ))
+                except:
+                    lines=None
+            if not lines:
+                lines = request.POST.get("value", "").splitlines()
             if not lines:
                 returninfo["error"] = -1
                 returninfo["msg"] = u"沒有收到任何數據"

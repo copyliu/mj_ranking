@@ -80,7 +80,8 @@
             jQuery.post("/import/",{
                     type:"json",
                     value:$("#text").val(),
-                match:$("#form1").attr("match")
+                match:$("#form1").attr("match"),
+                tenhouurl:$("#tenhouurl").val()
 
 
             },function(data)
@@ -122,6 +123,9 @@
                 <textarea  name="text" id="text" rows="5" cols="80" ></textarea>
 
 <br/>
+        *格式 : 名字|对局数|和了|放铳|立直|最高和了|最高放铳|顺位|最终点数|副露<br/>
+        或天鳳牌譜url
+        <input type="text" name="tenhouurl" id="tenhouurl"/>
                 <!--<input type="submit" name="button" id="button" value="提交" />-->
     <input type="button" id="submitbutton" value="提交" />
                 </form>
